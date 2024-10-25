@@ -48,6 +48,7 @@ def createSession():
     session = requests.Session()
 
 def cloudSolver(newSolver=None, writeP=None):
+    '''
     cookieFile = os.listdir()
     if "cookie.txt" not in cookieFile:
         baseSolver = {
@@ -66,12 +67,13 @@ def cloudSolver(newSolver=None, writeP=None):
             baseSolver[key] = value
     if writeP:
         open("cookie.txt", "w").write(str(baseSolver))
+    '''
     headers = {
         'authority': 'www.perplexity.ai',
         'accept': '*/*',
         'accept-language': 'id-ID,id;q=0.9,en-US;q=0.8,en;q=0.7',
         'baggage': 'sentry-environment=dev,sentry-release=jsfkG4eiVywZFr7LerMQ0,sentry-public_key=bb45aa7ca2dc43b6a7b6518e7c91e13d,sentry-trace_id=a9e1685e73f44d85b3af45681ffdeea5,sentry-sample_rate=0,sentry-sampled=false',
-        'cookie': "; ".join(f"{key}={value}" for key, value in baseSolver.items()),
+#        'cookie': "; ".join(f"{key}={value}" for key, value in baseSolver.items()),
         'referer': 'https://www.perplexity.ai/',
         'sec-ch-ua': '"Not-A.Brand";v="99", "Chromium";v="124"',
         'sec-ch-ua-mobile': '?1',
@@ -94,22 +96,23 @@ def perplexity(prompt):
         createSession()
     uidcontext = str(uuid.uuid4())
     uidfrontend = str(uuid.uuid4())
-    uidvisit = re.search("pplx.visitor-id=(.*?);", cloudSolver()["cookie"]).group(1)
+    uidvisit = str(uuid.uuid4())
+#    uidvisit = re.search("pplx.visitor-id=(.*?);", cloudSolver()["cookie"]).group(1)
     url1 = f'https://www.perplexity.ai/socket.io/?EIO=4&transport=polling&t={rand(mode=1)}'
     r = session.get(f"{url1}{rand()}", headers=cloudSolver()).text
     sid = re.search("\"sid\":\"(.*?)\"", r).group(1)
-    p = session.post(f"{url1}{rand()}&sid={sid}", data='40{"jwt":"anonymous-ask-user"}', headers=cloudSolver(newSolver=session.cookies.get_dict())).text
-    p = session.post(f"{url1}{rand()}&sid={sid}", data='4214["perplexity_ask","' + prompt.replace("\n", ". ") + '",{"version":"2.9","source":"mweb","attachments":[],"language":"id","timezone":"Asia/Makassar","search_focus":"internet","frontend_uuid":"' + uidfrontend + '","mode":"concise","is_related_query":false,"visitor_id":"' + uidvisit + '","frontend_context_uuid":"' + uidcontext + '","prompt_source":"user","query_source":"home","is_incognito":false,"time_from_first_type":13200}]\u001e42["analytics_event",{"version":"2.9","source":"mweb","event_name":"submit query","event_data":{"queryStr":"' + prompt + '","queryParams":{"attachments":[],"language":"id","timezone":"Asia/Makassar","search_focus":"internet","frontend_uuid":"' + uidfrontend + '","mode":"concise","is_related_query":false,"visitor_id":"' + uidvisit + '","frontend_context_uuid":"' + uidcontext + '","prompt_source":"user","query_source":"home","is_incognito":false,"time_from_first_type":13200},"isFollowup":false,"submissionCount":1,"submissionType":"perplexity_ask","frontendUUID":"' + uidfrontend + '","submitTimestamp":' + str(int(time.time())) + ',"startFirstServerResponseMarker":{"eventTime":-1},"startLLMTokenMarker":{"eventTime":-1},"endStreamTimestamp":null,"finalizedTimestamp":null,"firstServerResponseReceived":false,"firstLLMTokenReceived":false,"firstSearchResultsMarker":{"eventTime":-1},"timestamp":' + str(int(time.time())) + ',"isBrowserExtension":false,"timeZone":"Asia/Makassar"},"visitor_id":"' + uidvisit + '","url":"/","referrer":"","language":"id","screen":"360x820","hostname":"www.perplexity.ai","device_info":{"hardwareConcurrency":8,"architecture":127,"colorDepth":24,"screenSize":"360x820"},"is_arc_browser":false}]', headers=cloudSolver(newSolver=session.cookies.get_dict())).text
+    p = session.post(f"{url1}{rand()}&sid={sid}", data='40{"jwt":"anonymous-ask-user"}', headers=cloudSolver()).text
+    p = session.post(f"{url1}{rand()}&sid={sid}", data='4214["perplexity_ask","' + prompt.replace("\n", ". ") + '",{"version":"2.9","source":"mweb","attachments":[],"language":"id","timezone":"Asia/Makassar","search_focus":"internet","frontend_uuid":"' + uidfrontend + '","mode":"concise","is_related_query":false,"visitor_id":"' + uidvisit + '","frontend_context_uuid":"' + uidcontext + '","prompt_source":"user","query_source":"home","is_incognito":false,"time_from_first_type":13200}]\u001e42["analytics_event",{"version":"2.9","source":"mweb","event_name":"submit query","event_data":{"queryStr":"' + prompt + '","queryParams":{"attachments":[],"language":"id","timezone":"Asia/Makassar","search_focus":"internet","frontend_uuid":"' + uidfrontend + '","mode":"concise","is_related_query":false,"visitor_id":"' + uidvisit + '","frontend_context_uuid":"' + uidcontext + '","prompt_source":"user","query_source":"home","is_incognito":false,"time_from_first_type":13200},"isFollowup":false,"submissionCount":1,"submissionType":"perplexity_ask","frontendUUID":"' + uidfrontend + '","submitTimestamp":' + str(int(time.time())) + ',"startFirstServerResponseMarker":{"eventTime":-1},"startLLMTokenMarker":{"eventTime":-1},"endStreamTimestamp":null,"finalizedTimestamp":null,"firstServerResponseReceived":false,"firstLLMTokenReceived":false,"firstSearchResultsMarker":{"eventTime":-1},"timestamp":' + str(int(time.time())) + ',"isBrowserExtension":false,"timeZone":"Asia/Makassar"},"visitor_id":"' + uidvisit + '","url":"/","referrer":"","language":"id","screen":"360x820","hostname":"www.perplexity.ai","device_info":{"hardwareConcurrency":8,"architecture":127,"colorDepth":24,"screenSize":"360x820"},"is_arc_browser":false}]', headers=cloudSolver()).text
     dataFinal = "Result tidak ditemukan"
     while True:
-        r=session.get(f"{url1}{rand()}&sid={sid}", headers=cloudSolver(newSolver=session.cookies.get_dict())).text
+        r=session.get(f"{url1}{rand()}&sid={sid}", headers=cloudSolver()).text
         if '"status":"completed"' in r:
             res = eval("'''" + r + "'''")
             result = re.search("\"status\":\"completed\".*\"text\":\"\{\"answer\": \"(.*?)\", \"web_results\": \[.*?\], \"chunks\"", res)
             if result:
                 dataFinal = str(eval("'''" + result.group(1) + "'''"))
             break
-    cloudSolver(newSolver=session.cookies.get_dict(), writeP=True)
+#    cloudSolver(newSolver=session.cookies.get_dict(), writeP=True)
     return dataFinal
 
 @app.route("/api", methods=["GET"])
@@ -119,11 +122,13 @@ def freeApi():
         return jsonify({"status": "error","message": "prompt parameter is required"})
     return jsonify({"status": "success","output": perplexity(p)})
 
+'''
 @app.route("/cookie_guard", methods=["GET"])
 def cookieGuard():
     if not workerStatus:
         executor.submit(sessionUpdate)
     return str(workerStatus)
+'''
 
 @app.route("/<apapun>", methods=["GET"])
 def handler(apapun):
