@@ -21,4 +21,5 @@ Api Perplexity (ai seperti chatgpt) unlimited gratis tanpa login
 
 #### catatan:
 gunakan + sebagai ganti spasi pada teks prompt kalian, seperti berikut
+
     http://0.0.0.0:5000/api?prompt=buatkan+cerita+lucu
