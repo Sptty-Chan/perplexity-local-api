@@ -119,9 +119,12 @@ def perplexity(prompt):
 def freeApi():
     p=request.args.get("prompt")
     if not p or p.replace(" ", "") == "":
-        return jsonify({"status": "error","message": "prompt parameter is required"})
-    return jsonify({"status": "success","output": perplexity(p)})
-
+        return jsonify({"status": "error","message": "parameter prompt dibutuhkan"}), 400
+    outputFinal = perplexity(p)
+    if outputFinal == "Result tidak ditemukan":
+        return jsonify({"status": "success","output": outputFinal}), 404
+    else:
+        return jsonify({"status": "success","output": outputFinal}), 200
 '''
 @app.route("/cookie_guard", methods=["GET"])
 def cookieGuard():
@@ -132,8 +135,8 @@ def cookieGuard():
 
 @app.route("/<apapun>", methods=["GET"])
 def handler(apapun):
-    return jsonify({"status": "error","message": f"path /{apapun} tidak ada"})
+    return jsonify({"status": "error","message": f"path /{apapun} tidak ada"}), 400
 
 @app.route("/", methods=["GET"])
 def index():
-    return jsonify({"status": "error","message": "gunakan path /api"})
+    return jsonify({"status": "error","message": "gunakan path /api"}), 400
