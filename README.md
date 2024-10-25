@@ -8,9 +8,17 @@ Api Perplexity (ai seperti chatgpt) unlimited gratis tanpa login
     gunicorn -c config.py --bind 0.0.0.0:5000 wsgi:app
 
 # table url
-| part | value |
-| -------- | --------------- |
+| part url | value |
+| --------- | --------------- |
 | hostname | 0.0.0.0 |
 | port | 5000 |
 | path | /api |
-| param | prompt={{string}} |
+| parameter | prompt={{string}} |
+
+# full url
+    http://0.0.0.0:5000/api?prompt={{string}}
+
+
+#### catatan:
+gunakan + sebagai ganti spasi pada teks prompt kalian, seperti berikut
+    http://0.0.0.0:5000/api?prompt=buatkan+cerita+lucu
