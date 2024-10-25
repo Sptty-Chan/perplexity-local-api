@@ -1,10 +1,8 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
-from flask_executor import Executor
 import requests, random, string, re, uuid, time, os
 
 app = Flask("perplexityApi")
-executor = Executor(app)
 CORS(app)
 
 
