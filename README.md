@@ -4,7 +4,7 @@ Api Perplexity (ai seperti chatgpt) unlimited gratis tanpa login
 # cara menjalankan program
 ### 1. salin command dibawah
     pip install -r requirements.txt
-### 2. salin command dibawan
+### 2. salin command dibawah
     gunicorn -c config.py --bind 0.0.0.0:5000 wsgi:app
 
 # table url
@@ -17,6 +17,9 @@ Api Perplexity (ai seperti chatgpt) unlimited gratis tanpa login
 
 # full url
     http://0.0.0.0:5000/api?prompt={{string}}
+
+# request method
+    GET
 
 # table response sukses (json)
 | key | value | datatype |
