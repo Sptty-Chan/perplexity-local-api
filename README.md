@@ -18,6 +18,18 @@ Api Perplexity (ai seperti chatgpt) unlimited gratis tanpa login
 # full url
     http://0.0.0.0:5000/api?prompt={{string}}
 
+# table response sukses (json)
+| key | value | datatype |
+| ------ | ---------- | -------- |
+| status | success | string |
+| output | balasan ai | string |
+
+# table response gagal (json)
+| key | value | datatype |
+| ------ | ---------- | -------- |
+| status | error | string |
+| message | pesan error | string |
+
 
 #### catatan:
 gunakan + sebagai ganti spasi pada teks prompt kalian, seperti berikut
