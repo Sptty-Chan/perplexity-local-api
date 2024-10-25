@@ -7,7 +7,7 @@ Api Perplexity (ai seperti chatgpt) unlimited gratis tanpa login
 ### 2. salin command dibawah
     gunicorn -c config.py --bind 0.0.0.0:5000 wsgi:app
 
-# table url
+# tabel url
 | part url | value |
 | --------- | --------------- |
 | hostname | 0.0.0.0 |
@@ -21,13 +21,13 @@ Api Perplexity (ai seperti chatgpt) unlimited gratis tanpa login
 # request method
     GET
 
-# table response sukses (json)
+# tabel response sukses (json)
 | key | value | datatype |
 | ------ | ---------- | -------- |
 | status | success | string |
 | output | balasan ai | string |
 
-# table response gagal (json)
+# tabel response gagal (json)
 | key | value | datatype |
 | ------ | ---------- | -------- |
 | status | error | string |
